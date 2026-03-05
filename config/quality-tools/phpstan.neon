@@ -1,0 +1,29 @@
+parameters:
+    level: 8
+
+    paths:
+        - src
+
+    excludePaths:
+        - tests
+        - var
+        - vendor
+
+    # Symfony-specific configuration
+    symfony:
+        container_xml_path: var/cache/dev/App_KernelDevDebugContainer.xml
+        console_application_loader: tests/console-application.php
+
+    # Strict rules for better code quality
+    reportUnmatchedIgnoredErrors: true
+    checkMissingIterableValueType: true
+    checkGenericClassInNonGenericObjectType: true
+    checkMissingCallableSignature: true
+
+    # Performance optimization
+    parallel:
+        maximumNumberOfProcesses: 4
+
+    # Custom extensions
+    includes:
+        - vendor/phpstan/phpstan-symfony/extension.neon

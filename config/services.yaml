@@ -1,0 +1,43 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Make all classes in the bundle available as services
+    Acme\CodeQualityBundle\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/AcmeCodeQualityBundle.php'
+
+    # Configuration Resolver
+    Acme\CodeQualityBundle\Configuration\ConfigurationResolver:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+            $bundleConfigDir: '%acme_code_quality.config_dir%'
+
+    # Tool Runners
+    Acme\CodeQualityBundle\Runner\PhpstanRunner:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+        tags:
+            - { name: 'acme_code_quality.tool_runner' }
+
+    Acme\CodeQualityBundle\Runner\PhpcsRunner:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+        tags:
+            - { name: 'acme_code_quality.tool_runner' }
+
+    # Tool Runner Registry
+    Acme\CodeQualityBundle\Runner\ToolRunnerRegistry:
+        arguments:
+            $runners: !tagged_iterator 'acme_code_quality.tool_runner'
+
+    # Hook Installer
+    Acme\CodeQualityBundle\Hook\HookInstaller:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+            $templateDir: '%acme_code_quality.config_dir%/../src/Hook/templates'
+
+    # Commands are auto-registered via autoconfigure

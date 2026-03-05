@@ -1,0 +1,84 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Standalone CLI wrapper for Code Quality Bundle
+ *
+ * This allows the bundle to be used outside of Symfony projects
+ * by providing a minimal console application.
+ */
+
+// Autoload detection - try multiple locations
+$autoloadPaths = [
+    __DIR__ . '/../../../autoload.php', // Installed as dependency
+    __DIR__ . '/../vendor/autoload.php', // Development
+];
+
+$autoloadPath = null;
+foreach ($autoloadPaths as $path) {
+    if (file_exists($path)) {
+        $autoloadPath = $path;
+        break;
+    }
+}
+
+if ($autoloadPath === null) {
+    fwrite(
+        STDERR,
+        'Error: Composer autoload file not found. Run "composer install" first.' . PHP_EOL
+    );
+    exit(1);
+}
+
+require $autoloadPath;
+
+use Acme\CodeQualityBundle\Command\CheckCommand;
+use Acme\CodeQualityBundle\Command\PhpstanCommand;
+use Acme\CodeQualityBundle\Command\PhpcsCommand;
+use Acme\CodeQualityBundle\Command\InstallHooksCommand;
+use Acme\CodeQualityBundle\Configuration\ConfigurationResolver;
+use Acme\CodeQualityBundle\Hook\HookInstaller;
+use Acme\CodeQualityBundle\Runner\PhpcsRunner;
+use Acme\CodeQualityBundle\Runner\PhpstanRunner;
+use Acme\CodeQualityBundle\Runner\ToolRunnerRegistry;
+use Symfony\Component\Console\Application;
+
+// Determine project directory (current working directory)
+$projectDir = getcwd();
+if ($projectDir === false) {
+    fwrite(STDERR, 'Error: Could not determine current working directory.' . PHP_EOL);
+    exit(1);
+}
+
+// Determine bundle config directory
+$bundleConfigDir = __DIR__ . '/../config/quality-tools';
+
+// Manually wire dependencies (no DI container in standalone mode)
+$configResolver = new ConfigurationResolver($projectDir, $bundleConfigDir);
+
+$phpstanRunner = new PhpstanRunner($configResolver, $projectDir);
+$phpcsRunner = new PhpcsRunner($configResolver, $projectDir);
+
+$registry = new ToolRunnerRegistry([$phpstanRunner, $phpcsRunner]);
+
+$hookInstaller = new HookInstaller($projectDir, __DIR__ . '/../src/Hook/templates');
+
+// Create console application
+$application = new Application('Code Quality Tools', '1.0.0');
+
+// Register commands
+$application->add(new CheckCommand($registry));
+$application->add(new PhpstanCommand($registry));
+$application->add(new PhpcsCommand($registry));
+$application->add(new InstallHooksCommand($hookInstaller));
+
+// Run application
+try {
+    $exitCode = $application->run();
+    exit($exitCode);
+} catch (\Exception $e) {
+    fwrite(STDERR, sprintf('Error: %s', $e->getMessage()) . PHP_EOL);
+    exit(1);
+}
