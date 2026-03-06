@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\CodeQualityBundle\Configuration;
+namespace Janit\CodeQualityBundle\Configuration;
 
 class ConfigurationResolver
 {

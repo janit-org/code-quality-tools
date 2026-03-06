@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Acme\CodeQualityBundle\Command;
+namespace Janit\CodeQualityBundle\Command;
 
-use Acme\CodeQualityBundle\Runner\ToolRunnerRegistry;
+use Janit\CodeQualityBundle\Runner\ToolRunnerRegistry;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

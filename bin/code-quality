@@ -34,15 +34,15 @@ if ($autoloadPath === null) {
 
 require $autoloadPath;
 
-use Acme\CodeQualityBundle\Command\CheckCommand;
-use Acme\CodeQualityBundle\Command\PhpstanCommand;
-use Acme\CodeQualityBundle\Command\PhpcsCommand;
-use Acme\CodeQualityBundle\Command\InstallHooksCommand;
-use Acme\CodeQualityBundle\Configuration\ConfigurationResolver;
-use Acme\CodeQualityBundle\Hook\HookInstaller;
-use Acme\CodeQualityBundle\Runner\PhpcsRunner;
-use Acme\CodeQualityBundle\Runner\PhpstanRunner;
-use Acme\CodeQualityBundle\Runner\ToolRunnerRegistry;
+use Janit\CodeQualityBundle\Command\CheckCommand;
+use Janit\CodeQualityBundle\Command\PhpstanCommand;
+use Janit\CodeQualityBundle\Command\PhpcsCommand;
+use Janit\CodeQualityBundle\Command\InstallHooksCommand;
+use Janit\CodeQualityBundle\Configuration\ConfigurationResolver;
+use Janit\CodeQualityBundle\Hook\HookInstaller;
+use Janit\CodeQualityBundle\Runner\PhpcsRunner;
+use Janit\CodeQualityBundle\Runner\PhpstanRunner;
+use Janit\CodeQualityBundle\Runner\ToolRunnerRegistry;
 use Symfony\Component\Console\Application;
 
 // Determine project directory (current working directory)

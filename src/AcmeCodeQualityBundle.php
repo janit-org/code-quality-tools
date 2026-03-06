@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Acme\CodeQualityBundle;
+namespace Janit\CodeQualityBundle;
 
-use Acme\CodeQualityBundle\DependencyInjection\AcmeCodeQualityExtension;
+use Janit\CodeQualityBundle\DependencyInjection\JanitCodeQualityExtension;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AcmeCodeQualityBundle extends Bundle
+class JanitCodeQualityBundle extends Bundle
 {
     public function getPath(): string
     {
@@ -18,7 +18,7 @@ class AcmeCodeQualityBundle extends Bundle
     public function getContainerExtension(): ?ExtensionInterface
     {
         if (null === $this->extension) {
-            $this->extension = new AcmeCodeQualityExtension();
+            $this->extension = new JanitCodeQualityExtension();
         }
 
         return $this->extension;

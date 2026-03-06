@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\CodeQualityBundle\Runner;
+namespace Janit\CodeQualityBundle\Runner;
 
 readonly class ToolResult
 {

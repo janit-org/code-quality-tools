@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Git pre-commit hook installed by acme/code-quality-bundle
+# Git pre-commit hook installed by janit/code-quality-bundle
 # This hook runs code quality checks on staged PHP files before commit
 
 echo "🔍 Running code quality checks..."

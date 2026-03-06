@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\CodeQualityBundle\Hook;
+namespace Janit\CodeQualityBundle\Hook;
 
 class HookInstaller
 {

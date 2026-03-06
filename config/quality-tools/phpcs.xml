@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="AcmeCodeQuality">
+<ruleset name="JanitCodeQuality">
     <description>Standard coding rules for Symfony projects</description>
 
     <!-- Display progress and use colors -->

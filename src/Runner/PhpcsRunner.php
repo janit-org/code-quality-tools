@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Acme\CodeQualityBundle\Runner;
+namespace Janit\CodeQualityBundle\Runner;
 
-use Acme\CodeQualityBundle\Configuration\ConfigurationResolver;
+use Janit\CodeQualityBundle\Configuration\ConfigurationResolver;
 use Symfony\Component\Process\Process;
 
 class PhpcsRunner implements ToolRunnerInterface

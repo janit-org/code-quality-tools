@@ -41,7 +41,7 @@ A comprehensive, reusable code quality tooling package for Symfony 7 projects th
 ### 1. Install via Composer
 
 ```bash
-composer require --dev acme/code-quality-bundle
+composer require --dev janit/code-quality-bundle
 ```
 
 ### 2. Register the Bundle (Symfony 6.4+)
@@ -52,7 +52,7 @@ The bundle should be auto-registered by Symfony Flex. If not, add it manually:
 // config/bundles.php
 return [
     // ...
-    Acme\CodeQualityBundle\AcmeCodeQualityBundle::class => ['dev' => true, 'test' => true],
+    Janit\CodeQualityBundle\JanitCodeQualityBundle::class => ['dev' => true, 'test' => true],
 ];
 ```
 
@@ -123,14 +123,14 @@ The bundle resolves configuration files in this order:
 
 1. **Project root** (e.g., `phpstan.neon`, `phpcs.xml`)
 2. **Project config directory** (`config/quality-tools/phpstan.neon`)
-3. **Bundle defaults** (vendor/acme/code-quality-bundle/config/quality-tools/)
+3. **Bundle defaults** (vendor/janit/code-quality-bundle/config/quality-tools/)
 
 ### Override Default Configuration
 
 #### Option 1: Project Root
 
 ```bash
-cp vendor/acme/code-quality-bundle/config/quality-tools/phpstan.neon phpstan.neon
+cp vendor/janit/code-quality-bundle/config/quality-tools/phpstan.neon phpstan.neon
 # Edit phpstan.neon as needed
 ```
 
@@ -138,7 +138,7 @@ cp vendor/acme/code-quality-bundle/config/quality-tools/phpstan.neon phpstan.neo
 
 ```bash
 mkdir -p config/quality-tools
-cp vendor/acme/code-quality-bundle/config/quality-tools/phpstan.neon config/quality-tools/
+cp vendor/janit/code-quality-bundle/config/quality-tools/phpstan.neon config/quality-tools/
 # Edit config/quality-tools/phpstan.neon as needed
 ```
 
@@ -149,7 +149,7 @@ cp vendor/acme/code-quality-bundle/config/quality-tools/phpstan.neon config/qual
 ```neon
 # config/quality-tools/phpstan.neon
 includes:
-    - ../../vendor/acme/code-quality-bundle/config/quality-tools/phpstan.neon
+    - ../../vendor/janit/code-quality-bundle/config/quality-tools/phpstan.neon
 
 parameters:
     level: 9
@@ -165,7 +165,7 @@ parameters:
 <?xml version="1.0"?>
 <ruleset name="MyProject">
     <!-- Import bundle defaults -->
-    <rule ref="../../vendor/acme/code-quality-bundle/config/quality-tools/phpcs.xml"/>
+    <rule ref="../../vendor/janit/code-quality-bundle/config/quality-tools/phpcs.xml"/>
 
     <!-- Add custom rules -->
     <rule ref="Generic.Files.LineLength">
@@ -251,7 +251,7 @@ The bundle can be used as a standalone CLI tool in non-Symfony projects:
 
 ```bash
 # Install
-composer require --dev acme/code-quality-bundle
+composer require --dev janit/code-quality-bundle
 
 # Run directly
 ./vendor/bin/code-quality check
@@ -338,7 +338,7 @@ See `config/quality-tools/phpcs.xml` for full configuration.
 ### Bundle Structure
 
 ```
-acme/code-quality-bundle/
+janit/code-quality-bundle/
 ├── bin/
 │   └── code-quality              # Standalone CLI
 ├── config/
@@ -380,8 +380,8 @@ acme/code-quality-bundle/
 // src/Runner/MyCustomRunner.php
 namespace App\Runner;
 
-use Acme\CodeQualityBundle\Runner\ToolRunnerInterface;
-use Acme\CodeQualityBundle\Runner\ToolResult;
+use Janit\CodeQualityBundle\Runner\ToolRunnerInterface;
+use Janit\CodeQualityBundle\Runner\ToolResult;
 
 class MyCustomRunner implements ToolRunnerInterface
 {
@@ -408,7 +408,7 @@ Register as a service:
 # config/services.yaml
 App\Runner\MyCustomRunner:
     tags:
-        - { name: 'acme_code_quality.tool_runner' }
+        - { name: 'janit_code_quality.tool_runner' }
 ```
 
 ## Troubleshooting
@@ -435,7 +435,7 @@ Check configuration resolution order and verify file paths:
 
 ```bash
 ls -la config/quality-tools/
-ls -la vendor/acme/code-quality-bundle/config/quality-tools/
+ls -la vendor/janit/code-quality-bundle/config/quality-tools/
 ```
 
 ### Pre-commit Hook Not Working
@@ -486,8 +486,8 @@ Contributions are welcome! Please:
 
 ## Support
 
-- **Issues:** https://github.com/acme/code-quality-bundle/issues
-- **Discussions:** https://github.com/acme/code-quality-bundle/discussions
+- **Issues:** https://github.com/janit/code-quality-bundle/issues
+- **Discussions:** https://github.com/janit/code-quality-bundle/discussions
 
 ## Changelog
 
