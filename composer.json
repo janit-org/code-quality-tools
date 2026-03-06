@@ -4,11 +4,12 @@
     "type": "symfony-bundle",
     "license": "MIT",
     "keywords": [
-        "code-quality",
+        "code quality",
         "phpstan",
         "phpcs",
         "slevomat",
-        "static-analysis",
+        "static analysis",
+        "standards",
         "symfony",
         "bundle"
     ],
